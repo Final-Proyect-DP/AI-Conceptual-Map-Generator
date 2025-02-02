@@ -19,7 +19,7 @@ exports.generateMap = async (req, res) => {
     try {
         logger.info(`Starting map generation for user ${userId}`);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
-        const prompt = `Genera un mapa conceptual en formato graphviz sobre ${theme}, asegurándote de incluir ${considerations}. Organiza la información en temas y subtemas. El resultado debe ser exclusivamente el mapa conceptual en graphviz, sin texto adicional.`;
+        const prompt = `Genera un mapa conceptual en formato graphviz sobre ${theme}, asegurándote de ${considerations}. Organiza la información en temas y subtemas. El resultado debe ser exclusivamente el mapa conceptual en graphviz, sin texto adicional.`;
         
         const result = await model.generateContent(prompt);
         const botMessage = await result.response.text();
