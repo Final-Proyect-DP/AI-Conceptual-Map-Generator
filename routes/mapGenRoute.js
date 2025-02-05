@@ -7,39 +7,39 @@ const { verifyToken } = require('../middlewares/authMiddleware');
  * @swagger
  * /map:
  *   get:
- *     summary: Genera un mapa conceptual usando IA
- *     description: Genera un mapa conceptual en formato GraphViz sobre un tema específico
+ *     summary: Generates a concept map using AI
+ *     description: Generates a concept map in GraphViz format about a specific topic
  *     tags:
- *       - Mapas Conceptuales
+ *       - Concept Maps
  *     parameters:
  *       - in: query
  *         name: userId
  *         required: true
  *         schema:
  *           type: string
- *         description: ID del usuario autenticado
+ *         description: Authenticated user ID
  *         example: user123
  *       - in: query
  *         name: token
  *         required: true
  *         schema:
  *           type: string
- *         description: Token JWT de autenticación
+ *         description: JWT Authentication token
  *         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
  *       - in: query
  *         name: theme
  *         required: true
  *         schema:
  *           type: string
- *         description: Tema del mapa conceptual
- *         example: Inteligencia Artificial
+ *         description: Concept map theme
+ *         example: Artificial Intelligence
  *       - in: query
  *         name: considerations
  *         required: true
  *         schema:
  *           type: string
- *         description: Consideraciones específicas para el mapa
- *         example: Incluir conceptos básicos y aplicaciones
+ *         description: Specific considerations for the map
+ *         example: Include basic concepts and applications
  *     responses:
  *       200:
  *         description: Mapa conceptual generado exitosamente

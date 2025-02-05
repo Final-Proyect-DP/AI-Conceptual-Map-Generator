@@ -4,14 +4,14 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
     info: {
-      title: 'API Generador de Mapas Conceptuales',
+      title: 'Concept Map Generator API',
       version: '1.0.0',
-      description: 'API para generar mapas conceptuales usando IA'
+      description: 'API for generating concept maps using AI'
     },
     servers: [
       {
         url: 'http://localhost:3031',
-        description: 'Servidor de desarrollo'
+        description: 'Development server'
       }
     ],
     components: {
@@ -31,13 +31,13 @@ const swaggerOptions = {
             },
             theme: {
               type: 'string',
-              example: 'Inteligencia Artificial',
-              description: 'Tema del mapa conceptual'
+              example: 'Artificial Intelligence',
+              description: 'Concept map theme'
             },
             considerations: {
               type: 'string',
-              example: 'Incluir conceptos básicos y aplicaciones',
-              description: 'Consideraciones específicas para el mapa'
+              example: 'Include basic concepts and applications',
+              description: 'Specific considerations for the map'
             }
           }
         },
