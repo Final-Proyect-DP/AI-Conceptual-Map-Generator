@@ -19,6 +19,10 @@ app.use(cors());
 // Swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', service: 'AI-Mapbot' });
+});
+
 // Routes
 app.use('/', mapGenRoute);
 
