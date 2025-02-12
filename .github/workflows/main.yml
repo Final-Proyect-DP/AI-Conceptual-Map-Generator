@@ -1,8 +1,9 @@
-name: Deploy Pull Request to main Environment
+name: Deploy to production Environment
 
 on:
-  push:
-    branches: [staging]
+  pull_request:
+    types: [closed] 
+    branches: [main]
 
 jobs:
   build_docker_image:
@@ -19,13 +20,13 @@ jobs:
       - name: edit .env file
         env:
           PORT: ${{ secrets.PORT }}
-          REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          REDIS_HOST: ${{ secrets.REDIS_HOST_PROD }}
           REDIS_PORT: ${{ secrets.REDIS_PORT }}
           ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
           ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
           KAFKA_TOPIC_LOGIN: ${{ secrets.KAFKA_TOPIC_LOGIN }}
           KAFKA_TOPIC_LOGOUT: ${{ secrets.KAFKA_TOPIC_LOGOUT }}
-          KAFKA_BROKER: ${{ secrets.KAFKA_BROKER }}
+          KAFKA_BROKER: ${{ secrets.KAFKA_BROKER_PROD }}
           KAFKA_CLIENT_ID: ${{ secrets.KAFKA_CLIENT_ID }}
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
@@ -57,14 +58,14 @@ jobs:
         with:
           images: byvoxel/ai-mapbot
           tags: |
-            type=raw,value=staging
+            type=raw,value=production
           
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: byvoxel/ai-mapbot:staging
+          tags: byvoxel/ai-mapbot:production
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -75,7 +76,7 @@ jobs:
     strategy:
       matrix:
         ec2_instance: 
-          - ec2-3-83-213-66.compute-1.amazonaws.com
+          - ec2-44-210-130-78.compute-1.amazonaws.com
 
     steps:
       - name: Deploy Container
@@ -88,13 +89,13 @@ jobs:
           timeout: "120s"
           script: |
             set -e
-            echo "Deploying image: byvoxel/ai-mapbot:staging"
+            echo "Deploying image: byvoxel/ai-mapbot:production"
             sudo docker stop ai-mapbot || true
             sudo docker rm ai-mapbot || true
-            sudo docker pull byvoxel/ai-mapbot:staging
+            sudo docker pull byvoxel/ai-mapbot:production
             sudo docker run -d \
               --name ai-mapbot \
               -p 3031:3031 \
               --restart unless-stopped \
-              byvoxel/ai-mapbot:staging
+              byvoxel/ai-mapbot:production
             sudo docker system prune -af --volumes || true
