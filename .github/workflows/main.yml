@@ -76,7 +76,7 @@ jobs:
     strategy:
       matrix:
         ec2_instance: 
-          - ec2-44-210-130-78.compute-1.amazonaws.com
+          - ec2-54-158-187-158.compute-1.amazonaws.com
 
     steps:
       - name: Deploy Container
