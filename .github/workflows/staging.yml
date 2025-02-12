@@ -1,4 +1,4 @@
-name: Deploy Pull Request to main Environment
+name: Deploy to staging Environment
 
 on:
   push:
@@ -75,7 +75,7 @@ jobs:
     strategy:
       matrix:
         ec2_instance: 
-          - ec2-3-83-213-66.compute-1.amazonaws.com
+          - ec2-18-212-50-16.compute-1.amazonaws.com
 
     steps:
       - name: Deploy Container
