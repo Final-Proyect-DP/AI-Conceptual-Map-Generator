@@ -2,7 +2,7 @@ name: Deploy Pull Request to main Environment
 
 on:
   push:
-    branches: [main]
+    branches: [staging]
 
 jobs:
   build_docker_image:
@@ -21,28 +21,24 @@ jobs:
           PORT: ${{ secrets.PORT }}
           REDIS_HOST: ${{ secrets.REDIS_HOST }}
           REDIS_PORT: ${{ secrets.REDIS_PORT }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
           ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
           ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
           KAFKA_TOPIC_LOGIN: ${{ secrets.KAFKA_TOPIC_LOGIN }}
           KAFKA_TOPIC_LOGOUT: ${{ secrets.KAFKA_TOPIC_LOGOUT }}
           KAFKA_BROKER: ${{ secrets.KAFKA_BROKER }}
           KAFKA_CLIENT_ID: ${{ secrets.KAFKA_CLIENT_ID }}
-          NODE_ENV: ${{ secrets.NODE_ENV }}
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           echo "PORT=${PORT}" > .env
           echo "REDIS_HOST=${REDIS_HOST}" >> .env
           echo "REDIS_PORT=${REDIS_PORT}" >> .env
-          echo "JWT_SECRET=${JWT_SECRET}" >> .env
           echo "ENCRYPTION_KEY=${ENCRYPTION_KEY}" >> .env
           echo "ENCRYPTION_IV=${ENCRYPTION_IV}" >> .env
           echo "KAFKA_TOPIC_LOGIN=${KAFKA_TOPIC_LOGIN}" >> .env
           echo "KAFKA_TOPIC_LOGOUT=${KAFKA_TOPIC_LOGOUT}" >> .env
           echo "KAFKA_BROKER=${KAFKA_BROKER}" >> .env
           echo "KAFKA_CLIENT_ID=${KAFKA_CLIENT_ID}" >> .env
-          echo "NODE_ENV=${NODE_ENV}" >> .env
           echo "API_KEY=${API_KEY}" >> .env
           echo "SECRET_KEY=${SECRET_KEY}" >> .env
 
@@ -79,7 +75,7 @@ jobs:
     strategy:
       matrix:
         ec2_instance: 
-          - ec2-184-72-109-181.compute-1.amazonaws.com
+          - ec2-3-83-213-66.compute-1.amazonaws.com
 
     steps:
       - name: Deploy Container
